@@ -26,6 +26,8 @@ jobs:
 
     - name: Run Django Tests
       env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} # Uses a "Secret" (see below)
+        # We add a dummy secret key here so Django can initialize
+        SECRET_KEY: "django-insecure-test-key-for-ci"
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       run: |
         python manage.py test
