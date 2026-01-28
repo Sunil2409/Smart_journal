@@ -8,9 +8,8 @@ from dotenv import load_dotenv
 
 load_dotenv() # This loads variables from a .env file
 
-# Use an environment variable instead of a hardcoded string
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=GEMINI_API_KEY)
+# In your settings.py
+SECRET_KEY = os.getenv('SECRET_KEY', 'optional-default-disposable-key-for-dev')
 DEBUG = True
 
 ALLOWED_HOSTS = []
