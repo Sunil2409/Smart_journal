@@ -13,14 +13,20 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'optional-default-disposable-key-for-dev')
 DEBUG = True
 
 # settings.py
-# settings.py
 import os
 
-# Get the host from Render environment, or default to nothing
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
-    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# settings.py
+
+# Trust the Render domain for secure form submissions
+CSRF_TRUSTED_ORIGINS = [
+    'https://smart-journal-ozhi.onrender.com'
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
