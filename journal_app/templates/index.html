@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head><title>Smart Journal</title></head>
+<body style="font-family: Arial; max-width: 600px; margin: 50px auto;">
+    <h2>📓 My Smart Journal</h2>
+    
+
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="journal_entry" rows="5" style="width:100%" placeholder="How was your day?"></textarea><br><br>
+        <button type="submit" style="background-color: #4285F4; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+            Analyze with Gemini AI
+        </button>
+    </form>
+
+    {% if advice %}
+        <div style="background: #e8f0fe; padding: 20px; margin-top: 20px; border-radius: 10px; border-left: 5px solid #4285F4;">
+            <strong>Gemini's Insight:</strong>
+            <p>{{ advice }}</p>
+        </div>
+    {% endif %}
+
+    <hr>
+    <h3>📜 Past Entries</h3>
+    {% for entry in history %}
+        <div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
+            <small>{{ entry.created_at }}</small>
+            <p><strong>You:</strong> {{ entry.user_text }}</p>
+            <p><strong>Gemini:</strong> {{ entry.ai_advice }}</p>
+        </div>
+    {% empty %}
+        <p>No entries yet. Start writing!</p>
+    {% endfor %}
+
+</body>
+</html>

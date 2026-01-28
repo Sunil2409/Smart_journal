@@ -1,0 +1,31 @@
+name: Smart Journal CI
+
+on:
+  push:
+    branches: [ "main" ] # Runs whenever you push to the main branch
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # The "robot" computer runs Linux
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4 # Downloads your code onto the robot
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Django Tests
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} # Uses a "Secret" (see below)
+      run: |
+        python manage.py test
