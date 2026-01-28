@@ -13,14 +13,15 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'optional-default-disposable-key-for-dev')
 DEBUG = True
 
 # settings.py
+# settings.py
 import os
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
+# Get the host from Render environment, or default to nothing
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
 if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-    
+    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
