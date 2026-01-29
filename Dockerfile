@@ -10,4 +10,5 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Replace the old CMD with this:
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "journal_project.wsgi:application"]
