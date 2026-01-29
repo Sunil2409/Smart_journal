@@ -11,4 +11,5 @@ COPY . .
 EXPOSE 8000
 
 # Replace the old CMD with this:
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "journal_project.wsgi:application"]
+# This command runs migrations every time the app starts, then launches Gunicorn
+CMD python manage.py migrate && gunicorn --bind 0.0.0.0:8000 journal_project.wsgi:application
